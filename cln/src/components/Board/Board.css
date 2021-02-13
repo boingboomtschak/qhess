@@ -1,0 +1,48 @@
+.Board {
+    width: calc(80vh + 4px);
+    height: 90vh;
+    background-color: white;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.ChessBoardWithVLabels {
+    width: calc(80vh + 4px);
+    height: min-content;
+    background-color: white;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.ChessBoard {
+    width: calc(64vh + 4px);
+    height: calc(64vh + 4px);
+    background-color: white;
+    box-sizing: border-box;
+    border: 2px solid black;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.VLabels {
+    width: 20px;
+    height: calc(64vh - 2px);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.HLabels {
+    width: calc(64vh - 2px);
+    height: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-left: 20px;
+}

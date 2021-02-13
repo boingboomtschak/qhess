@@ -1,0 +1,6 @@
+.Space {
+    width: 8vh;
+    height: 8vh;
+    border: 1px solid black;
+    box-sizing: border-box;
+}

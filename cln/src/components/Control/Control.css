@@ -1,0 +1,6 @@
+.Control {
+    width: calc(100vw - 80vh - 4px);
+    height: 90vh;
+    background-color: whites;
+    box-sizing: border-box;
+}
