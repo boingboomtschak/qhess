@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import * as math from 'mathjs';
 import './App.css';
 import Board from '../Board/Board';
 import Control from '../Control/Control';
 
-let testBoard = Array.from({length: 64});
+let testBoard = math.range(0, 64, 1).toArray();
 
 class App extends Component {
     render() {

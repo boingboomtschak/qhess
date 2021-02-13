@@ -4,8 +4,6 @@ import VLabels from './VLabels';
 import HLabels from './HLabels';
 import Space from '../Space/Space';
 
-let myArr = new Array(64);
-
 class Board extends Component {
     render() {
         return (<div className="Board">
