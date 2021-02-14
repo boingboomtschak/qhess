@@ -18,11 +18,13 @@ class Game {
         }
     }
 
-    movePiece(id, to, e) {
-        let piece = this.board.findPiece(id);
-        let x, y = to;
-        piece.moveTo(x, y, e);
-        this.changeTurn();
+    movePiece(caller, id, to, e) {
+        if (caller == this.turn) {
+            let piece = this.board.findPiece(id);
+            let x, y = to;
+            piece.moveTo(x, y, e);
+            this.changeTurn();
+        }
     }
     
     changeTurn() {

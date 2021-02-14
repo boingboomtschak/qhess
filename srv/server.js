@@ -45,7 +45,12 @@ io.on('connection', socket => {
     });
 
     socket.on('move_piece', (data) => {
-        
+        if(games.some(g => g.id == data.gid)) {
+            let game = games.find(g => g.id == data.gid);
+            game.movePiece(socket.id, data.id, data.to, data.energy);
+        } else {
+            socket.emit("error", "Game not found");
+        }
     });
     // requires something like { gid: <UUID>, id: <UUID>, to: [2, 4], energy: 4 }
 

@@ -51,7 +51,14 @@ class Client {
         this.socket.emit("join_game", { gid: id });
     }
     movePiece(id, x, y, e) {
-
+        if(this.gid != undefined) {
+            this.socket.emit('move_piece', {
+                gid: this.gid,
+                id: id,
+                to: [x, y],
+                e: e
+            });
+        }
     }
 }
 
