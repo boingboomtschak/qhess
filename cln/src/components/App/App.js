@@ -3,16 +3,17 @@ import * as math from 'mathjs';
 import './App.css';
 import Board from '../Board/Board';
 import Control from '../Control/Control';
-const { Board: MyBoard } = require('../../../../lib/qhess');
+import Client from '../../qhess-client.js';
 
 class App extends Component {
+    client = new Client();
     render() {
         return (<div className="App">
             <header className="App-header">
                 <h1>Qhess</h1>
             </header>
             <div className="App-body">
-                <Board board={new MyBoard()} />
+                <Board board={this.client.getBoard()} />
                 <Control />
             </div>
         </div>);

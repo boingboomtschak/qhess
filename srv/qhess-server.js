@@ -5,7 +5,7 @@ const io = require('socket.io');
 class Game {
     constructor(player) {
         this.id = uuid();
-        this.ip = player.address;
+        this.ip = player.handshake.address;
         this.turn = player.id;
         this.players = [player.id];
         this.board = new Board();
@@ -14,6 +14,7 @@ class Game {
     addPlayer(player) {
         if (players.length < 2) {
             this.players.push(player.id);
+            io.sockets.socket(player.id).emit('game_joined', { gid: this.id });
         }
     }
 
