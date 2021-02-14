@@ -6,7 +6,7 @@ const SOCKET_PORT = 8081;
 const path = require('path');
 const express = require('express');
 const io = require('socket.io') (SOCKET_PORT);
-const { Game, Player } = require('qhess-server');
+const { Game, Player } = require('./qhess-server.js');
 
 // Containers
 const games = [];
