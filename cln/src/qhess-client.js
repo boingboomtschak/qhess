@@ -6,12 +6,25 @@ const SOCKET_PORT = "8080";
 const SOCKET_ADDR = `${SOCKET_URL}:${SOCKET_PORT}`;
 
 class Client {
-    constructor() {
-        this.board = new Board();
+
+    constructor(stateHandler) {
+        this.setState = stateHandler;
         this.socket = io(SOCKET_ADDR);
-        this.socket.on("connect" ,() => {
+        this.board = null;
+
+        this.handleConnection();
+        this.handleGame();
+        this.handleMoves();
+        this.handleErrors();
+    }
+
+    handleConnection() {
+        this.socket.on("connect", () => {
             console.log(`Connected to ${SOCKET_ADDR} from ${this.socket.id}!`);
         });
+    }
+
+    handleGame() {
         this.socket.on("game_created", (data) => {
             console.log(`Created game successfully with gid ${data.gid}`)
             this.gid = data.gid;
@@ -20,6 +33,13 @@ class Client {
             console.log(`Joined game successfully with gid ${data.gid}`);
             this.gid = data.gid;
         });
+        this.socket.on("game_left", (data) => {
+            console.log(`Left game ${this.gid}`);
+            this.gid = undefined;
+        });
+    }
+
+    handleMoves() {
         this.socket.on("board_update", (data) => {
             console.log(`Updating board from server`);
             this.board = data.board;
@@ -32,24 +52,33 @@ class Client {
             console.log(`Turn notification received from server`);
             // something here to trigger UI to notify the player
         });
-        this.socket.on("game_left", (data) => {
-            console.log(`Left game ${this.gid}`);
-            this.gid = undefined;
-        });
+    }
+
+    handleErrors() {
         this.socket.on("error", (data) => {
             console.log(`ERROR: ${data}`);
             // something here that shows the error in UI (bootstrap alert box?)
         });
     }
+
+    initBoard() {
+        console.log("INITING")
+        this.board = new Board();
+        this.setState({ board: this.board });
+    }
+
     getBoard() {
         return this.board;
     }
+
     createGame() {
         this.socket.emit("create_game");
     }
+
     joinGame(id) {
         this.socket.emit("join_game", { gid: id });
     }
+
     movePiece(id, x, y, e) {
         if(this.gid != undefined) {
             this.socket.emit("move_piece", {
@@ -60,6 +89,7 @@ class Client {
             });
         }
     }
+
 }
 
 export default Client;

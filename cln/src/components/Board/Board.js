@@ -2,19 +2,20 @@ import React, { Component } from "react";
 import "./Board.css";
 import VLabels from "./VLabels";
 import HLabels from "./HLabels";
-import Space from "../Space/Space";
-import { uuidv4 } from "../../../../lib/qhess";
+import ChessBoard from "./ChessBoard";
 
 class Board extends Component {
+    constructor(props) {
+        super(props);
+    }
+    componentDidMount() {
+        // this.props.client.initBoard();
+    }
     render() {
         return (<div className="Board">
             <div className="ChessBoardWithVLabels">
                 <VLabels vLabels={["8", "7", "6", "5", "4", "3", "2", "1"]} />
-                <div className="ChessBoard">
-                    {this.props.board.board.flat().map(space => 
-                        <Space space={space} board={this.props.board} key={uuidv4()
-                    } />)}
-                </div>
+                <ChessBoard client={this.props.client} />
             </div>
             <HLabels hLabels={["a", "b", "c", "d", "e", "f", "g", "h"]} />
         </div>);

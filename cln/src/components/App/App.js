@@ -5,14 +5,22 @@ import Control from "../Control/Control";
 import Client from "../../qhess-client.js";
 
 class App extends Component {
-    client = new Client();
+    constructor(props) {
+        super(props);
+        this.state = { client: new Client(this.stateHandler), board: null };
+    }
+
+    stateHandler = state => {
+        this.setState(state)
+    }
+
     render() {
         return (<div className="App">
             <header className="App-header">
                 <h1>Qhess</h1>
             </header>
             <div className="App-body">
-                <Board board={this.client.getBoard()} />
+                <Board client={this.state.client} />
                 <Control />
             </div>
         </div>);
