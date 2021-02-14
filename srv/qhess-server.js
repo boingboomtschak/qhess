@@ -34,6 +34,7 @@ class Game {
         } else {
             this.turn = this.players[0];
         }
+        io.sockets.socket(this.turn).emit("turn_ready");
     }
 
     updateBoard() {

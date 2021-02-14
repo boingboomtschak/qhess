@@ -1,12 +1,21 @@
 // Constants
+const SERVER_ADDR = "localhost";
 const SERVER_PORT = 8080;
+const SERVER_ORIGIN = `${SERVER_ADDR}:${SERVER_PORT}`;
 
 // Requires
 const path = require("path");
 const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
-const io = require("socket.io")(server);
+// DEBUG: CORS is allowed all origins right now, this is for development purposes
+const opts = {
+    cors: {
+        origin: "*", 
+        methods: ["GET", "POST"],
+    }
+};
+const io = require("socket.io")(server, opts);
 const { Game } = require("./qhess-server.js");
 
 // Containers
@@ -22,6 +31,7 @@ io.on("connection", socket => {
 
     // Connection status
     console.log(`Client ${socket.id} (${socket.handshake.address}) connected`);
+
     socket.on("disconnect", () => {
         console.log(`Client ${socket.id} (${socket.handshake.address}) disconnected`);
     });

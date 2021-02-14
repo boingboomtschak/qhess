@@ -9,9 +9,8 @@ class ChessBoard extends Component {
     }
     render() {
         if(!!this.props.client.board) {
-            console.log("A");
             return (<div className="ChessBoard">
-                {this.props.client.board.board.flat().map(space => 
+                {this.props.client.board.board.flat().map(space =>
                     <Space client={this.props.client} space={space} key={uuidv4()} />
                 )}
             </div>);
