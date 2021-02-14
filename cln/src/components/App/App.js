@@ -5,8 +5,6 @@ import Board from '../Board/Board';
 import Control from '../Control/Control';
 const { Board: MyBoard } = require('../../../../lib/qhess');
 
-let testBoard = new MyBoard();
-
 class App extends Component {
     render() {
         return (<div className="App">
@@ -14,7 +12,7 @@ class App extends Component {
                 <h1>Qhess</h1>
             </header>
             <div className="App-body">
-                <Board board={testBoard.board} />
+                <Board board={new MyBoard()} />
                 <Control />
             </div>
         </div>);

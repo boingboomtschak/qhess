@@ -11,7 +11,7 @@ class Board extends Component {
             <div className="ChessBoardWithVLabels">
                 <VLabels vLabels={['8', '7', '6', '5', '4', '3', '2', '1']} />
                 <div className="ChessBoard">
-                    {this.props.board.flat().map(space => 
+                    {this.props.board.board.flat().map(space => 
                         <Space space={space} board={this.props.board} key={uuidv4()
                     } />)}
                 </div>
