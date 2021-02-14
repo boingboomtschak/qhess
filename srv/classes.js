@@ -23,8 +23,7 @@ class Player {
     constructor() {
         
     }
-    
+
 }
 
-exports.Game = Game;
-exports.Player = Player;
+export { Game, Player };
