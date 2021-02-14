@@ -1,5 +1,5 @@
 //const { v4 : uuid } = require('uuid');
-const { Board } = requires('../lib/qhess.js');
+const { Board } = require('../lib/qhess.js');
 const io = require('socket.io');
 
 class Game {
@@ -22,4 +22,4 @@ class Game {
 
 }
 
-export { Game };
+module.exports = { Game };
