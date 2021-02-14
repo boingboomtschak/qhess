@@ -28,12 +28,13 @@ class Space extends Component {
     }
     handleClick = (e) => {
         e.preventDefault();
-        this.props.client.initBoard();
-        console.log(this.props.space.getValidMoves(this.props.board));
+        this.props.client.highlightValidMoves(this.props.space);
     }
     render() {
         let pieces = this.props.space.pieces;
-        return (<div className="Space" onClick={this.handleClick}>
+        let brightness = (100 - 50 * this.props.space.prob);
+        let bgColor = { backgroundColor: `hsl(147, 50%, ${brightness}%)` };
+        return (<div className="Space" onClick={this.handleClick} style={bgColor}>
             {pieces.map(piece => (
                 <img src={icons[piece.name][piece.color]} />
             ))}

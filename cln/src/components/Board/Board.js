@@ -9,7 +9,7 @@ class Board extends Component {
         super(props);
     }
     componentDidMount() {
-        // this.props.client.initBoard();
+        this.props.client.initBoard();
     }
     render() {
         return (<div className="Board">

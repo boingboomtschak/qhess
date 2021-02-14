@@ -62,13 +62,24 @@ class Client {
     }
 
     initBoard() {
-        console.log("INITING")
         this.board = new Board();
         this.setState({ board: this.board });
     }
 
     getBoard() {
         return this.board;
+    }
+
+    highlightValidMoves(space) {
+        this.board.board.forEach(row => {
+            row.forEach(col => {
+                col.prob = 0;
+            });
+        });
+        space.getValidMoves(this.board).flat().forEach(([x, y]) => {
+            this.board.board[x][y].prob = 1;
+        });
+        this.setState({ board: this.board });
     }
 
     createGame() {
