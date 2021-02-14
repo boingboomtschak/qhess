@@ -3,8 +3,31 @@ import * as math from 'mathjs';
 import './App.css';
 import Board from '../Board/Board';
 import Control from '../Control/Control';
+import { Pawn, Bishop, Rook, Knight, Queen, King } from '../../../../lib/qhess';
 
-let testBoard = math.range(0, 64, 1).toArray();
+let testBoard = [];
+
+// add black pieces
+let backRow = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook];
+for(let i = 0; i < 8; i++) {
+    testBoard.push(new backRow[i](0, i, 'BLACK'));
+}
+for(let i = 0; i < 8; i++) {
+    testBoard.push(new Pawn(1, i, 'BLACK'));
+}
+
+// add blank pieces
+for(let i = 0; i < 8*4; i++) {
+    testBoard.push(null);
+}
+
+// add white pieces
+for(let i = 0; i < 8; i++) {
+    testBoard.push(new Pawn(6, i, 'WHITE'));
+}
+for(let i = 7; i >= 0; i--) {
+    testBoard.push(new backRow[i](7, i, 'WHITE'));
+}
 
 class App extends Component {
     render() {

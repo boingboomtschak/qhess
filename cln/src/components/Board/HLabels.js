@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { uuidv4 } from '../../../../lib/qhess';
 
 class HLabels extends Component {
     render() {
         return (<div className="HLabels">
             {this.props.hLabels.map(label => (
-                <div className="HLabel">
+                <div className="HLabel" key={uuidv4()}>
                     {label}
                 </div>
             ))}

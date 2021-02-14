@@ -3,6 +3,7 @@ import './Board.css';
 import VLabels from './VLabels';
 import HLabels from './HLabels';
 import Space from '../Space/Space';
+import { uuidv4 } from '../../../../lib/qhess';
 
 class Board extends Component {
     render() {
@@ -10,7 +11,7 @@ class Board extends Component {
             <div className="ChessBoardWithVLabels">
                 <VLabels vLabels={['8', '7', '6', '5', '4', '3', '2', '1']} />
                 <div className="ChessBoard">
-                    {this.props.board.map(num => <Space />)}
+                    {this.props.board.map(piece => <Space piece={piece} key={uuidv4()} />)}
                 </div>
             </div>
             <HLabels hLabels={['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']} />
