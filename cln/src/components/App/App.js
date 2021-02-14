@@ -3,7 +3,7 @@ import * as math from 'mathjs';
 import './App.css';
 import Board from '../Board/Board';
 import Control from '../Control/Control';
-import { Pawn, Bishop, Rook, Knight, Queen, King } from '../../../../lib/qhess';
+const { Pawn, Bishop, Rook, Knight, Queen, King } = require('../../../../lib/qhess');
 
 let testBoard = [];
 
