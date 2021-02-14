@@ -5,9 +5,11 @@ import Control from "../Control/Control";
 import Client from "../../qhess-client.js";
 
 class App extends Component {
+
     constructor(props) {
         super(props);
-        this.state = { client: new Client(this.stateHandler), board: null };
+        this.client = new Client(this.stateHandler);
+        this.state = { update: false };
     }
 
     stateHandler = state => {
@@ -17,11 +19,11 @@ class App extends Component {
     render() {
         return (<div className="App">
             <header className="App-header">
-                <h1>Qhess</h1>
+                <h1>Qhesss</h1>
             </header>
             <div className="App-body">
-                <Board client={this.state.client} />
-                <Control />
+                <Board client={this.client} />
+                <Control client={this.client} />
             </div>
         </div>);
     }

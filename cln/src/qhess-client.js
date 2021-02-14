@@ -11,6 +11,9 @@ class Client {
         this.setState = stateHandler;
         this.socket = io(SOCKET_ADDR);
         this.board = null;
+        this.selectedSpace = { x: null, y: null };
+        this.validMoves = [];
+        this.selectedPiece = null;
 
         this.handleConnection();
         this.handleGame();
@@ -70,16 +73,32 @@ class Client {
         return this.board;
     }
 
-    highlightValidMoves(space) {
+    noneSelected() {
+        return this.selectedSpace.x == null && this.selectedSpace.y == null;
+    }
+
+    isSelectedSpace(space) {
+        let { x, y } = space.pos;
+        return this.selectedSpace.x == x && this.selectedSpace.y == y;
+    }
+
+    unhighlightValidMoves() {
+        this.validMoves = [];
         this.board.board.forEach(row => {
             row.forEach(col => {
                 col.prob = 0;
             });
         });
-        space.getValidMoves(this.board).flat().forEach(([x, y]) => {
+        this.setState({ update: true });
+    }
+
+    highlightValidMoves(space) {
+        this.unhighlightValidMoves();
+        this.validMoves = space.getValidMoves(this.board).flat();
+        this.validMoves.forEach(([x, y]) => {
             this.board.board[x][y].prob = 1;
         });
-        this.setState({ board: this.board });
+        this.setState({ update: true });
     }
 
     createGame() {
