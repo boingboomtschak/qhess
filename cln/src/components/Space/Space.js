@@ -24,17 +24,17 @@ var icons = {
 };
 
 class Space extends Component {
-
+    handleClick = (e) => {
+        e.preventDefault();
+        console.log(this.props.space.getValidMoves(this.props.board));
+    }
     render() {
-        let notEmpty = this.props.piece != null;
-        if(notEmpty) {
-            let player = this.props.piece.color == 'WHITE';
-            return (<div className="Space">
-                <img src={icons[this.props.piece.name][player ? 'thin' : 'thicc']} />
-            </div>);
-        } else {
-            return (<div className="Space"></div>);
-        }
+        let pieces = this.props.space.pieces;
+        return (<div className="Space" onClick={this.handleClick}>
+            {pieces.map(piece => (
+                <img src={icons[piece.name][piece.color == 'WHITE' ? 'thin' : 'thicc']} />
+            ))}
+        </div>);
     }
 }
 
