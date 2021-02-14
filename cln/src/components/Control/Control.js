@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './Control.css';
+import React, { Component } from "react";
+import "./Control.css";
 
 class Control extends Component {
     render() {

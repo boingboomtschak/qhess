@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import * as math from 'mathjs';
-import './App.css';
-import Board from '../Board/Board';
-import Control from '../Control/Control';
-import Client from '../../qhess-client.js';
+import React, { Component } from "react";
+import "./App.css";
+import Board from "../Board/Board";
+import Control from "../Control/Control";
+import Client from "../../qhess-client.js";
 
 class App extends Component {
     client = new Client();

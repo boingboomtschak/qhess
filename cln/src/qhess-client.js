@@ -1,5 +1,5 @@
-const { Board } = require('../../lib/qhess.js');
-const io = require('socket.io-client');
+const { Board } = require("../../lib/qhess.js");
+const io = require("socket.io-client");
 
 const SOCKET_URL = "ws://localhost";
 const SOCKET_PORT = "8080";
@@ -10,7 +10,7 @@ class Client {
         this.board = new Board();
         this.socket = io(SOCKET_ADDR);
         this.socket.on("connect" ,() => {
-            console.log(`Connected to ${SOCKET_ADDR}!`);
+            console.log(`Connected to ${SOCKET_ADDR} from ${this.socket.id}!`);
         });
         this.socket.on("game_created", (data) => {
             console.log(`Created game successfully with gid ${data.gid}`)
@@ -52,7 +52,7 @@ class Client {
     }
     movePiece(id, x, y, e) {
         if(this.gid != undefined) {
-            this.socket.emit('move_piece', {
+            this.socket.emit("move_piece", {
                 gid: this.gid,
                 id: id,
                 to: [x, y],

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { uuidv4 } from '../../../../lib/qhess';
+import React, { Component } from "react";
+import { uuidv4 } from "../../../../lib/qhess";
 
 class HLabels extends Component {
     render() {

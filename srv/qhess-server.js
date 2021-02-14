@@ -1,6 +1,6 @@
-const { v4 : uuid } = require('uuid');
-const { Board } = require('../lib/qhess.js');
-const io = require('socket.io');
+const { v4 : uuid } = require("uuid");
+const { Board } = require("../lib/qhess.js");
+const io = require("socket.io");
 
 class Game {
     constructor(player) {
@@ -14,7 +14,7 @@ class Game {
     addPlayer(player) {
         if (players.length < 2) {
             this.players.push(player.id);
-            io.sockets.socket(player.id).emit('game_joined', { gid: this.id });
+            io.sockets.socket(player.id).emit("game_joined", { gid: this.id });
         }
     }
 
@@ -36,7 +36,7 @@ class Game {
     }
 
     updateBoard() {
-        this.players.forEach(p => io.sockets.socket(p).emit('board_update', this.board.board));
+        this.players.forEach(p => io.sockets.socket(p).emit("board_update", this.board.board));
     }
 }
 
