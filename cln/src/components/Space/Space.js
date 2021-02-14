@@ -23,8 +23,12 @@ var icons = {
 };
 
 class Space extends Component {
+    constructor(props) {
+        super(props);
+    }
     handleClick = (e) => {
         e.preventDefault();
+        this.props.client.initBoard();
         console.log(this.props.space.getValidMoves(this.props.board));
     }
     render() {
