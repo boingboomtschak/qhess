@@ -34,7 +34,8 @@ io.on("connection", socket => {
     // Game events
     socket.on("create_game", (data) => {
         if(!games.some(g => g.ip == socket.handshake.address)) {
-            games.push(new Game(socket));
+            let game = new Game(socket);
+            games.push(game);
         } else {
             socket.emit("error", "Game still active for IP");
         }

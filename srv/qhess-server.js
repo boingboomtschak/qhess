@@ -9,6 +9,7 @@ class Game {
         this.turn = player.id;
         this.players = [player.id];
         this.board = new Board();
+        io.sockets.socket(player.id).emit('game_created', { gid: this.id });
     }
 
     addPlayer(player) {
