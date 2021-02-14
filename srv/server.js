@@ -35,9 +35,9 @@ io.on('connection', socket => {
         }
     });
 
-    socket.on('join_game', (gid) => {
-        if(games.some(g => g.id == gid)) {
-            let game = games.find(g => g.id == gid);
+    socket.on('join_game', (data) => {
+        if(games.some(g => g.id == data.gid)) {
+            let game = games.find(g => g.id == data.gid);
             game.addPlayer(socket); 
         } else {
             socket.emit("error", "Game not found");
