@@ -28,19 +28,9 @@ class Space extends Component {
     render() {
         let notEmpty = this.props.piece != null;
         if(notEmpty) {
-            let piece = this.props.piece.constructor.name.toLowerCase();
             let player = this.props.piece.color == 'WHITE';
-            let img_src = '';
-            switch(piece) {
-                case 'pawn': img_src = pawn_thicc; break;
-                case 'rook': img_src = rook_thicc; break;
-                case 'knight': img_src = knight_thicc; break;
-                case 'bishop': img_src = bishop_thicc; break;
-                case 'queen': img_src = queen_thicc; break;
-                case 'king': img_src = king_thicc; break;
-            }
             return (<div className="Space">
-                <img src={icons[piece][player ? 'thin' : 'thicc']} />
+                <img src={icons[this.props.piece.name][player ? 'thin' : 'thicc']} />
             </div>);
         } else {
             return (<div className="Space"></div>);
