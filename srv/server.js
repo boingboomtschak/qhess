@@ -6,6 +6,7 @@ const SOCKET_PORT = 8081;
 const path = require('path');
 const express = require('express');
 const io = require('socket.io') (SOCKET_PORT);
+const { Game, Player } = require('qhess-server');
 
 // Containers
 const games = [];
@@ -13,6 +14,9 @@ const games = [];
 // Setting up express to serve from /cln/build
 var app = express();
 app.use(express.static(path.join(__dirname, '../cln/build')));
+
+// Serving files in /lib to the /lib endpoint
+app.use("/lib", express.static(path.join(__dirname, '../lib')));
 
 // Starting up server
 var server = app.listen(BROWSER_PORT);
