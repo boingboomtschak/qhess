@@ -1,6 +1,8 @@
-var http = require('http');
+var path = require('path');
+var express = require('express');
 
-http.createServer(function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end('Hello, world!');
-}).listen(8080);
+var app = express();
+
+app.use(express.static(path.join(__dirname, '../cln/build')));
+
+var server = app.listen(8080);
