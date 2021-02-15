@@ -50,7 +50,6 @@ class Space extends Component {
                 this.props.client.unhighlightValidMoves();
             }
         }
-        
     }
     render() {
         let pieces = this.props.space.pieces;
@@ -59,11 +58,14 @@ class Space extends Component {
         let validMoves = this.props.space.prob > 0;
         let cursor = noneSelected || validMoves ? "pointer" : "default";
         let style = { backgroundColor: `hsl(147, 50%, ${brightness}%)`, cursor: cursor };
+        if(this.props.client.board == null) {
+            style.cursor = "default";
+        }
         if(this.props.client.isSelectedSpace(this.props.space)) {
             style.backgroundColor = `hsl(208, 50%, 50%)`;
             style.cursor = "pointer";
         }
-        return (<div className="Space" onClick={this.handleClick} style={style}>
+        return (<div className="Space" style={style} onClick={this.handleClick}>
             {pieces.map(piece => (
                 <img src={icons[piece.name][piece.color]} key={uuidv4()} />
             ))}

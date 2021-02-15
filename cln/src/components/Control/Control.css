@@ -1,6 +1,57 @@
 .Control {
     width: calc(100vw - 80vh - 4px);
     height: 90vh;
-    background-color: whites;
+    background-color: white;
     box-sizing: border-box;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    padding-left: 8vh;
+    padding-right: 12vh;
+}
+
+.GameSession {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    height: max-content;
+    flex-flow: row wrap;
+}
+
+#gs1 {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+#gs2 {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 2vh;
+}
+
+#gs1 p {
+    font-size: 3vh;
+    line-height: 0.1vh;
+    width: fit-content;
+    margin-right: 2vh;
+}
+
+#gs1 input {
+    flex: 1;
+    font-size: 3vh;
+}
+
+#gs2 button {
+    display: inline-block;
+    flex: 1;
+    font-size: 2.5vh;
+}
+
+#panel {
+    width: 100%;
 }

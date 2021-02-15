@@ -11,6 +11,7 @@ class Client {
         this.setState = stateHandler;
         this.socket = io(SOCKET_ADDR);
         this.board = null;
+        this.gid = undefined;
         this.selectedSpace = { x: null, y: null };
         this.validMoves = [];
         this.selectedPiece = null;
@@ -46,7 +47,8 @@ class Client {
         this.socket.on("board_update", (data) => {
             console.log(`Updating board from server`);
             this.board = data.board;
-            // something here to force a re-render of the board state
+            this.deserializeBoard();
+            this.setState({ update: true });
         });
         this.socket.on("move_valid", (data) => {
             console.log(`Move accepted by the server`);
@@ -118,6 +120,16 @@ class Client {
                 e: e
             });
         }
+    }
+
+    deserializeBoard() {
+        this.board.board.forEach(row => {
+            row.forEach(col => {
+                col.pieces.forEach(piece => {
+                    piece.board = this.board;
+                });
+            });
+        });
     }
 
 }
