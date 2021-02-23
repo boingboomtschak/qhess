@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "cd ../cln && npm run build && cd ../srv && node server.js",
-    "start-lazy": "node server.js",
+    "lazy": "node server.js",
     "setup": "npm i && cd ../cln && npm i",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
