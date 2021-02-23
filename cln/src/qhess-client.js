@@ -11,6 +11,10 @@ class Client {
         this.setState = stateHandler;
         this.socket = io(SOCKET_ADDR);
         this.board = null;
+        this.gid = undefined;
+        this.selectedSpace = { x: null, y: null };
+        this.validMoves = [];
+        this.selectedPiece = null;
 
         this.handleConnection();
         this.handleGame();
@@ -43,7 +47,8 @@ class Client {
         this.socket.on("board_update", (data) => {
             console.log(`Updating board from server`);
             this.board = data.board;
-            // something here to force a re-render of the board state
+            this.deserializeBoard();
+            this.setState({ update: true });
         });
         this.socket.on("move_valid", (data) => {
             console.log(`Move accepted by the server`);
@@ -70,16 +75,32 @@ class Client {
         return this.board;
     }
 
-    highlightValidMoves(space) {
+    noneSelected() {
+        return this.selectedSpace.x == null && this.selectedSpace.y == null;
+    }
+
+    isSelectedSpace(space) {
+        let { x, y } = space.pos;
+        return this.selectedSpace.x == x && this.selectedSpace.y == y;
+    }
+
+    unhighlightValidMoves() {
+        this.validMoves = [];
         this.board.board.forEach(row => {
             row.forEach(col => {
                 col.prob = 0;
             });
         });
-        space.getValidMoves(this.board).flat().forEach(([x, y]) => {
+        this.setState({ update: true });
+    }
+
+    highlightValidMoves(space) {
+        this.unhighlightValidMoves();
+        this.validMoves = space.getValidMoves(this.board).flat();
+        this.validMoves.forEach(([x, y]) => {
             this.board.board[x][y].prob = 1;
         });
-        this.setState({ board: this.board });
+        this.setState({ update: true });
     }
 
     createGame() {
@@ -99,6 +120,16 @@ class Client {
                 e: e
             });
         }
+    }
+
+    deserializeBoard() {
+        this.board.board.forEach(row => {
+            row.forEach(col => {
+                col.pieces.forEach(piece => {
+                    piece.board = this.board;
+                });
+            });
+        });
     }
 
 }

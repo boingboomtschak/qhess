@@ -6,16 +6,18 @@ class Game {
     constructor(player) {
         this.id = uuid();
         this.ip = player.handshake.address;
-        this.turn = player.id;
-        this.players = [player.id];
+        this.turn = player;
+        this.players = [player];
         this.board = new Board();
-        io.sockets.socket(player.id).emit('game_created', { gid: this.id });
+        player.emit('game_created', { gid: this.id });
+        this.updateBoard();
     }
 
     addPlayer(player) {
         if (players.length < 2) {
-            this.players.push(player.id);
-            io.sockets.socket(player.id).emit("game_joined", { gid: this.id });
+            this.players.push(player);
+            player.emit("game_joined", { gid: this.id });
+            this.updateBoard();
         }
     }
 
@@ -29,16 +31,38 @@ class Game {
     }
     
     changeTurn() {
-        if (this.turn == this.players[0]) {
+        if (this.turn.id == this.players[0].id) {
             this.turn = this.players[1];
         } else {
             this.turn = this.players[0];
         }
-        io.sockets.socket(this.turn).emit("turn_ready");
+        this.turn.emit("turn_ready");
+    }
+
+    serializeBoard() {
+        this.board.board.forEach(row => {
+            row.forEach(col => {
+                col.pieces.forEach(piece => {
+                    piece.board = undefined;
+                });
+            });
+        });
+    }
+
+    deserializeBoard() {
+        this.board.board.forEach(row => {
+            row.forEach(col => {
+                col.pieces.forEach(piece => {
+                    piece.board = this.board;
+                });
+            });
+        });
     }
 
     updateBoard() {
-        this.players.forEach(p => io.sockets.socket(p).emit("board_update", this.board.board));
+        this.serializeBoard();
+        this.players.forEach(socket => socket.emit("board_update", { board: this.board }));
+        this.deserializeBoard();
     }
 }
 
