@@ -1,6 +1,6 @@
 // Constants
 const SERVER_ADDR = "localhost";
-const SERVER_PORT = 8080;
+const SERVER_PORT = 8181;
 const SERVER_ORIGIN = `${SERVER_ADDR}:${SERVER_PORT}`;
 
 // Requires
@@ -22,7 +22,7 @@ const { Game } = require("./qhess-server.js");
 const games = [];
 
 // Starting server (express + socket.io server)
-app.use(express.static(path.join(__dirname, "../cln/build")));
+app.use('/', express.static("../cln/build"));
 server.listen(SERVER_PORT);
 console.log(`Server started on port ${SERVER_PORT}`);
 
